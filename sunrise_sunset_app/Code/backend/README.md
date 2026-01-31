@@ -1,17 +1,17 @@
 # 🚀 Quick Start Guide - Backend
 
-## Pré-requisitos
+## Prerequisites
 
-Antes de começar, certifique-se de ter instalado:
+Before you begin, ensure you have installed:
 
-- **Ruby 3.2.0+**: `ruby -v`
-- **Bundler**: `gem install bundler`
-- **PostgreSQL 12+**: `psql --version` (ou SQLite3 para desenvolvimento)
-- **Git**: `git --version`
+- **Ruby 3.2.0+**: `ruby -v`. Version used: 3.4.8
+- **Bundler**: `gem install bundler`. Version used: 4.0.5
+- **PostgreSQL 12+**: `psql --version` (or SQLite3 for development). Version used: 18.1
+- **Git**: `git --version`. Version used: 2.52.0.windows.1.
 
-## Setup Rápido (5 minutos)
+## Quick Setup (5 minutes)
 
-### Opção 1: Script Automático
+### Option 1: Automatic Script
 
 ```bash
 cd backend
@@ -19,35 +19,35 @@ chmod +x setup.sh
 ./setup.sh
 ```
 
-### Opção 2: Setup Manual
+### Option 2: Manual Setup
 
 ```bash
-# 1. Entrar no diretório
+# 1. Enter the directory
 cd backend
 
-# 2. Instalar dependências
+# 2. Install dependencies
 bundle install
 
-# 3. Configurar variáveis de ambiente
+# 3. Configure environment variables
 cp .env.example .env
-# Editar .env com suas configurações
+# Edit .env with your settings
 
-# 4. Configurar database
-# Para PostgreSQL - editar config/database.yml
-# Ou manter SQLite3 (padrão para desenvolvimento)
+# 4. Configure database
+# For PostgreSQL - edit config/database.yml
+# Or keep SQLite3 (default for development)
 
-# 5. Criar e configurar banco de dados
+# 5. Create and configure database
 rails db:create
 rails db:migrate
 
-# 6. (Opcional) Popular com dados de exemplo
+# 6. (Optional) Populate with sample data
 rails db:seed
 
-# 7. Iniciar servidor
+# 7. Start server
 rails server
 ```
 
-## ✅ Verificar Instalação
+## ✅ Verify Installation
 
 ### 1. Health Check
 
@@ -55,43 +55,37 @@ rails server
 curl http://localhost:3000/health
 ```
 
-**Resposta esperada:**
+**Expected response:**
 ```json
 {
   "status": "ok",
-  "timestamp": "2024-01-29T10:30:00Z"
+  "timestamp":"2026-01-31T22:22:33+00:00"
 }
 ```
 
-### 2. Testar API
+### 2. Test API - Test with cmd
 
 ```bash
-curl -X POST http://localhost:3000/api/v1/sunrise_sunsets \
-  -H "Content-Type: application/json" \
-  -d '{
-    "location": "Lisbon",
-    "start_date": "2024-01-01",
-    "end_date": "2024-01-03"
-  }'
+curl -X POST http://localhost:3000/api/v1/sunrise_sunsets -H "Content-Type: application/json" -d "{\"location\":\"Lisbon\",\"start_date\":\"2024-01-01\",\"end_date\":\"2024-01-03\"}"
 ```
 
-### 3. Executar Testes
+### 3. Run Tests
 
 ```bash
 bundle exec rspec
 ```
 
-**Output esperado:**
+**Expected output:**
 ```
 Finished in X seconds
 XX examples, 0 failures
 ```
 
-## 🔧 Configuração Detalhada
+## 🔧 Detailed Configuration
 
 ### Database (PostgreSQL)
 
-Se estiver usando PostgreSQL, edite `config/database.yml`:
+If you are using PostgreSQL, edit `config/database.yml`:
 
 ```yaml
 development:
@@ -99,42 +93,42 @@ development:
   encoding: unicode
   database: sunrise_sunset_development
   pool: 5
-  username: seu_usuario
-  password: sua_senha
+  username: your_username (example:postgres)
+  password: your_password (example:postgres)
   host: localhost
 ```
 
-### Database (SQLite - Mais Simples)
+### Database (SQLite - Simpler)
 
-Para usar SQLite em desenvolvimento, edite o `Gemfile`:
+To use SQLite in development, edit the `Gemfile`:
 
 ```ruby
-# Substituir esta linha:
-gem 'pg', '~> 1.5'
+# Replace this line:
+gem “pg”, “~> 1.5”
 
-# Por esta:
-gem 'sqlite3', '~> 1.4'
+# With this:
+gem “sqlite3”, “~> 1.4”
 ```
 
-Depois:
+Then:
 ```bash
 bundle install
 rails db:create db:migrate
 ```
 
-### Variáveis de Ambiente
+### Environment Variables
 
-Edite o arquivo `.env`:
+Edit the `.env` file:
 
 ```env
-# Email para o serviço de geocoding (Nominatim)
+# Email for the geocoding service (Nominatim)
 GEOCODER_EMAIL=seu-email@example.com
 
-# Ambiente
+# Environment
 RAILS_ENV=development
 ```
 
-## 📦 Estrutura de Ficheiros Criada
+## 📦 File Structure Created
 
 ```
 backend/
@@ -174,52 +168,52 @@ backend/
 └── setup.sh
 ```
 
-## 🎯 Endpoints Disponíveis
+## 🎯 Available Endpoints
 
-| Método | Endpoint | Descrição |
+| Method | Endpoint | Description |
 |--------|----------|-----------|
 | GET | `/health` | Health check |
-| POST | `/api/v1/sunrise_sunsets` | Criar/buscar dados |
-| GET | `/api/v1/sunrise_sunsets` | Listar registros |
-| GET | `/api/v1/sunrise_sunsets/:id` | Mostrar registro |
-| DELETE | `/api/v1/sunrise_sunsets/:id` | Deletar registro |
+| POST | `/api/v1/sunrise_sunsets` | Create/retrieve data |
+| GET | `/api/v1/sunrise_sunsets` | List records |
+| GET | `/api/v1/sunrise_sunsets/:id` | Show record |
+| DELETE | `/api/v1/sunrise_sunsets/:id` | Delete record |
 
 ## 🧪 Executar Testes
 
 ```bash
-# Todos os testes
+# All tests
 bundle exec rspec
 
-# Apenas models
+# Models only
 bundle exec rspec spec/models
 
-# Apenas services
+# Services only
 bundle exec rspec spec/services
 
-# Apenas controllers
+# Controllers only
 bundle exec rspec spec/controllers
 
-# Com cobertura
+# With coverage
 COVERAGE=true bundle exec rspec
 ```
 
 ## 🐛 Troubleshooting
 
-### Erro: "Database does not exist"
+### Error: ‘Database does not exist’
 
 ```bash
 rails db:create
 ```
 
-### Erro: "Pending migrations"
+### Error: ‘Pending migrations’
 
 ```bash
 rails db:migrate
 ```
 
-### Erro: "LoadError: cannot load such file -- pg"
+### Error: ‘LoadError: cannot load such file -- pg’
 
-**Solução 1**: Instalar PostgreSQL
+**Solution 1**: Install PostgreSQL
 ```bash
 # Ubuntu/Debian
 sudo apt-get install postgresql postgresql-contrib libpq-dev
@@ -228,120 +222,120 @@ sudo apt-get install postgresql postgresql-contrib libpq-dev
 brew install postgresql
 ```
 
-**Solução 2**: Usar SQLite (mais simples)
+**Solution 2**: Use SQLite (simpler)
 ```ruby
-# No Gemfile, substituir:
-gem 'pg' 
-# por:
-gem 'sqlite3'
+# In Gemfile, replace:
+gem “pg” 
+# with:
+gem “sqlite3”
 ```
 
-### Erro: Port 3000 já está em uso
+### Error: Port 3000 is already in use
 
 ```bash
-# Encontrar processo
+# Find process
 lsof -ti:3000
 
-# Matar processo
+# Kill process
 kill -9 $(lsof -ti:3000)
 
-# Ou usar outra porta
+# Or use another port
 rails server -p 3001
 ```
 
-### Erro: "Geocoder::OverQueryLimitError"
+### Error: ‘Geocoder::OverQueryLimitError’
 
-O serviço Nominatim tem limite de 1 req/segundo. O cache deveria prevenir isso, mas se ocorrer:
-- Aguarde alguns segundos
-- Verifique se o email está configurado no .env
+The Nominatim service has a limit of 1 request per second. The cache should prevent this, but if it occurs:
+- Wait a few seconds
+- Check that the email is configured in .env
 
-## 📊 Dados de Teste
+## 📊 Test Data
 
-O arquivo `db/seeds.rb` cria dados de exemplo para:
+The `db/seeds.rb` file creates sample data for:
 - **Lisbon, Berlin, Tokyo**
-- **Últimos 7 dias**
+- **Last 7 days**
 
-Para popular:
+To populate:
 ```bash
 rails db:seed
 ```
 
-Para limpar e repopular:
+To clear and repopulate:
 ```bash
 rails db:reset
 ```
 
-## 🔄 Workflow de Desenvolvimento
+## 🔄 Development Workflow
 
-1. **Fazer mudanças no código**
-2. **Executar testes**: `bundle exec rspec`
-3. **Testar manualmente**: Use Postman ou curl
-4. **Verificar logs**: `tail -f log/development.log`
-5. **Commit**: `git add . && git commit -m "sua mensagem"`
+1. **Make changes to the code**
+2. **Run tests**: `bundle exec rspec`
+3. **Test manually**: Use Postman or curl
+4. **Check logs**: `tail -f log/development.log`
+5. **Commit**: `git add . && git commit -m ‘your message’`
 
-## 📝 Comandos Úteis
+## 📝 Useful Commands
 
 ```bash
-# Console do Rails
+# Rails console
 rails console
 
-# Rotas disponíveis
+# Available routes
 rails routes
 
-# Status do database
+# Database status
 rails db:version
 
-# Reverter última migration
+# Revert last migration
 rails db:rollback
 
-# Ver logs em tempo real
+# View logs in real time
 tail -f log/development.log
 
-# Limpar cache
+# Clear cache
 rails cache:clear
 
-# Análise de código
+# Code analysis
 bundle exec rubocop
 ```
 
-## 🎓 Próximos Passos
+## 🎓 Next Steps
 
-1. ✅ Backend está rodando
-2. → Desenvolver Frontend (React)
-3. → Integrar Frontend com Backend
-4. → Testar aplicação completa
-5. → Criar documentação
-6. → Gravar screencast
+1. ✅ Backend is running
+2. → Develop Frontend (React)
+3. → Integrate Frontend with Backend
+4. → Test complete application
+5. → Create documentation
+6. → Record screencast
 
-## 💡 Dicas
+## 💡 Tips
 
-- **Sempre execute os testes** antes de fazer commit
-- **Use o console do Rails** para testar queries e serviços
-- **Monitore os logs** durante desenvolvimento
-- **Cache funciona**: Segunda requisição para mesma localização é instantânea
-- **API externa é gratuita** mas tem rate limits
+- **Always run tests** before committing
+- **Use the Rails console** to test queries and services
+- **Monitor logs** during development
+- **Cache works**: Second request to the same location is instantaneous
+- **External API is free** but has rate limits
 
-## 🆘 Precisa de Ajuda?
+## 🆘 Need help?
 
-- Verifique o `README.md` completo no diretório backend
-- Leia os comentários no código
-- Execute `rails console` e teste interativamente
-- Revise os testes em `spec/` para ver exemplos de uso
+- Check the complete `README.md` in the backend directory
+- Read the comments in the code
+- Run `rails console` and test interactively
+- Review the tests in `spec/` to see usage examples
 
-## 🎉 Pronto!
+## 🎉 Done!
 
-Se o health check funcionou, o backend está pronto para uso!
+If the health check worked, the backend is ready to use!
 
 ```bash
 curl http://localhost:3000/health
-# {"status":"ok","timestamp":"..."}
+# {‘status’:‘ok’,“timestamp”:‘...’}
 ```
 
-Agora você pode:
-1. Testar os endpoints com Postman/curl
-2. Começar o desenvolvimento do frontend
-3. Conectar frontend ao backend
+Now you can:
+1. Test the endpoints with Postman/curl
+2. Begin frontend development
+3. Connect the frontend to the backend
 
 ---
 
-**Backend criado com sucesso! 🚀**
+**Backend successfully created! 🚀**

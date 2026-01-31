@@ -47,7 +47,7 @@ RSpec.describe SunriseSunsetApiService do
       end
       
       before do
-        stub_request(:get, "https://api.sunrisesunset.io/json")
+        stub_request(:get, %r{https://api\.sunrisesunset\.io/json})
           .with(query: hash_including({
             lat: latitude.to_s,
             lng: longitude.to_s,
@@ -72,7 +72,7 @@ RSpec.describe SunriseSunsetApiService do
     
     context 'with empty results' do
       before do
-        stub_request(:get, "https://api.sunrisesunset.io/json")
+        stub_request(:get, %r{https://api\.sunrisesunset\.io/json})
           .to_return(
             status: 200,
             body: { status: 'OK', results: [] }.to_json,
@@ -88,7 +88,7 @@ RSpec.describe SunriseSunsetApiService do
     
     context 'with API error status' do
       before do
-        stub_request(:get, "https://api.sunrisesunset.io/json")
+        stub_request(:get, %r{https://api\.sunrisesunset\.io/json})
           .to_return(
             status: 200,
             body: { status: 'INVALID_REQUEST' }.to_json,
@@ -105,7 +105,7 @@ RSpec.describe SunriseSunsetApiService do
     
     context 'with HTTP error' do
       before do
-        stub_request(:get, "https://api.sunrisesunset.io/json")
+        stub_request(:get, %r{https://api\.sunrisesunset\.io/json})
           .to_return(status: 500)
       end
       
@@ -118,7 +118,7 @@ RSpec.describe SunriseSunsetApiService do
     
     context 'with rate limit error' do
       before do
-        stub_request(:get, "https://api.sunrisesunset.io/json")
+        stub_request(:get, %r{https://api\.sunrisesunset\.io/json})
           .to_return(status: 429)
       end
       
@@ -131,7 +131,7 @@ RSpec.describe SunriseSunsetApiService do
     
     context 'with invalid JSON response' do
       before do
-        stub_request(:get, "https://api.sunrisesunset.io/json")
+        stub_request(:get, %r{https://api\.sunrisesunset\.io/json})
           .to_return(
             status: 200,
             body: 'invalid json',

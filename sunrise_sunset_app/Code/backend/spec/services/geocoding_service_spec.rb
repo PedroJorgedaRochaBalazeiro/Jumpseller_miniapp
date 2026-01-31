@@ -2,6 +2,7 @@
 require 'rails_helper'
 
 RSpec.describe GeocodingService do
+  before(:each) { Rails.cache.clear }
   describe '.coordinates_for' do
     let(:location) { 'Lisbon' }
     
@@ -27,12 +28,11 @@ RSpec.describe GeocodingService do
         expect(result[:longitude]).to eq(-9.1393)
         expect(result[:formatted_address]).to eq('Lisbon, Portugal')
       end
-      
+
       it 'caches the result' do
         described_class.coordinates_for(location)
-        
-        # Second call should use cache
-        expect(Geocoder).to receive(:search).never
+
+        expect(Geocoder).not_to receive(:search)
         described_class.coordinates_for(location)
       end
     end

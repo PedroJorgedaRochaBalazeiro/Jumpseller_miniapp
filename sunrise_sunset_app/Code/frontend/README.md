@@ -17,22 +17,22 @@ If you are developing a production application, we recommend using TypeScript wi
 
 # Sunrise Sunset App - Frontend
 
-React frontend para visualizar dados históricos de nascer e pôr do sol.
+React frontend for viewing historical sunrise and sunset data.
 
-## 📋 Requisitos
+## 📋 Requirements
 
-- Node.js 18+ ou superior
-- npm 9+ ou yarn
+- Node.js 18+ or higher
+- npm 9+ or yarn
 
-## 🚀 Instalação e Setup
+## 🚀 Installation and Setup
 
-### 1. Instalar Dependências
+### 1. Install Dependencies
 
 ```bash
 npm install
 ```
 
-### 2. Configurar Variáveis de Ambiente
+### 2. Configure Environment Variables
 
 ```bash
 # Copiar o arquivo de exemplo
@@ -42,35 +42,35 @@ cp .env.example .env
 # VITE_API_URL=http://localhost:3000/api/v1
 ```
 
-### 3. Iniciar Servidor de Desenvolvimento
+### 3. Start Development Server
 
 ```bash
 npm run dev
 ```
 
-A aplicação estará disponível em: `http://localhost:5173`
+The application will be available at: `http://localhost:5173`
 
-## 📦 Scripts Disponíveis
+## 📦 Available Scripts
 
 ```bash
-# Desenvolvimento
-npm run dev          # Inicia servidor de desenvolvimento
+# Development
+npm run dev          # Start development server
 
 # Build
-npm run build        # Cria build de produção
-npm run preview      # Preview do build de produção
+npm run build        # Create production build
+npm run preview      # Preview of the production build
 
 # Linting & Formatting
-npm run lint         # Executa ESLint
-npm run format       # Formata código com Prettier
+npm run lint         # Run ESLint
+npm run format       # Format code with Prettier
 ```
 
-## 🏗️ Estrutura do Projeto
+## 🏗️ Project Structure
 
 ```
 frontend/
 ├── public/
-│   └── (arquivos estáticos)
+│   └── (static files)
 ├── src/
 │   ├── components/        # Componentes React
 │   │   ├── LocationForm.jsx
@@ -87,62 +87,62 @@ frontend/
 │   │   └── useSunriseSunsetData.js
 │   ├── services/          # API services
 │   │   └── apiService.js
-│   ├── utils/             # Funções utilitárias
+│   ├── utils/             # Utility functions
 │   │   └── dateHelpers.js
-│   ├── App.jsx            # Componente principal
+│   ├── App.jsx            # Main component
 │   ├── App.css
 │   ├── main.jsx           # Entry point
-│   └── index.css          # Estilos globais
+│   └── index.css          # Global styles
 ├── index.html
 ├── package.json
 ├── vite.config.js
 └── .env
 ```
 
-## 🎨 Componentes
+## 🎨 Components
 
 ### LocationForm
-Formulário para entrada de localização e intervalo de datas:
-- Input de texto para localização
-- Date pickers para start/end dates
-- Validação de formulário
-- Estados de loading
+Form for entering location and date range:
+- Text input for location
+- Date pickers for start/end dates
+- Form validation
+- Loading states
 
 ### DataChart
-Visualização gráfica dos dados:
-- Line chart com Recharts
-- Linha de sunrise (laranja)
-- Linha de sunset (azul)
-- Tooltip customizado
-- Responsivo
+Graphical data visualisation:
+- Line chart with Recharts
+- Sunrise line (orange)
+- Sunset line (blue)
+- Customised tooltip
+- Responsive
 
 ### DataTable
-Tabela detalhada com todos os dados:
-- Formatação de datas e horas
-- Golden hours destacadas
-- Scroll horizontal em mobile
-- Informações adicionais
+Detailed table with all data:
+- Date and time formatting
+- Golden hours highlighted
+- Horizontal scrolling on mobile
+- Additional information
 
 ### LoadingSpinner
-Indicador de loading animado
+Animated loading indicator
 
 ### ErrorMessage
-Exibição de erros com sugestões
+Displaying errors with suggestions
 
-## 🔧 Configuração
+## 🔧 Configuration
 
-### Variáveis de Ambiente
+### Environment Variables
 
 ```env
 # Backend API URL
 VITE_API_URL=http://localhost:3000/api/v1
 ```
 
-Para produção, altere para a URL do seu backend deployed.
+For production, change to the URL of your deployed backend.
 
-### Customização de Estilos
+### Style Customisation
 
-As cores e temas são definidos em `src/index.css`:
+Colours and themes are defined in `src/index.css`:
 
 ```css
 :root {
@@ -153,18 +153,18 @@ As cores e temas são definidos em `src/index.css`:
 }
 ```
 
-## 📊 Tecnologias Utilizadas
+## 📊 Technologies Used
 
-- **React 18** - UI library
-- **Vite** - Build tool
+- **React 18** - UI library. Version 19.2.4
+- **Vite** - Build tool. Version 7.3.1
 - **Recharts** - Data visualization
 - **Axios** - HTTP client
 - **date-fns** - Date utilities
 - **React DatePicker** - Date selection
 
-## 🔌 Integração com Backend
+## 🔌 Backend Integration
 
-O frontend comunica com o backend através do `apiService.js`:
+The frontend communicates with the backend through `apiService.js`:
 
 ```javascript
 import { sunriseSunsetAPI } from './services/apiService';
@@ -177,103 +177,103 @@ const data = await sunriseSunsetAPI.fetchData(
 );
 ```
 
-### Endpoints Utilizados
+### Endpoints Used
 
-- `POST /api/v1/sunrise_sunsets` - Buscar/criar dados
-- `GET /api/v1/sunrise_sunsets` - Listar registros
+- `POST /api/v1/sunrise_sunsets` - Search/create data
+- `GET /api/v1/sunrise_sunsets` - List records
 - `GET /health` - Health check
 
-## 🎯 Funcionalidades
+## 🎯 Features
 
-### ✅ Implementado
+### ✅ Implemented
 
-- [x] Formulário de busca com validação
-- [x] Date picker com constraints (máx 365 dias)
-- [x] Integração com backend API
-- [x] Gráfico de linha (Recharts)
-- [x] Tabela detalhada
+- [x] Search form with validation
+- [x] Date picker with constraints (max 365 days)
+- [x] Integration with backend API
+- [x] Line chart (Recharts)
+- [x] Detailed table
 - [x] Loading states
-- [x] Error handling com mensagens amigáveis
-- [x] Design responsivo (mobile, tablet, desktop)
-- [x] Animações suaves
-- [x] Formatação de datas e horas
-- [x] Tooltip customizado no gráfico
-- [x] Empty state quando não há dados
+- [x] Error handling with friendly messages
+- [x] Responsive design (mobile, tablet, desktop)
+- [x] Smooth animations
+- [x] Date and time formatting
+- [x] Customised tooltip on the chart
+- [x] Empty state when there is no data
 
-### 📱 Responsividade
+### 📱 Responsiveness
 
-- **Desktop** (>1024px): Layout completo
-- **Tablet** (768px-1024px): Layout adaptado
-- **Mobile** (<768px): Layout mobile-first
+- **Desktop** (>1024px): Full layout
+- **Tablet** (768px-1024px): Adapted layout
+- **Mobile** (<768px): Mobile-first layout
 
 ## 🐛 Troubleshooting
 
-### Erro: "No response from server"
+### Error: "No response from server"
 
-**Causa**: Backend não está rodando ou URL está incorreta.
+**Cause**: Backend is not running or URL is incorrect.
 
-**Solução**:
-1. Verifique se o backend está rodando: `curl http://localhost:3000/health`
-2. Verifique a variável `VITE_API_URL` no `.env`
-3. Restart o dev server: `npm run dev`
+**Solution**:
+1. Verify that the backend is running: `curl http://localhost:3000/health`
+2. Verify the `VITE_API_URL` variable in `.env`
+3. Restart the dev server: `npm run dev`
 
-### Erro: "Location not found"
+### Error: ‘Location not found’
 
-**Causa**: Nome da cidade não foi encontrado pelo geocoder.
+**Cause**: City name was not found by the geocoder.
 
-**Soluções**:
-- Verifique a ortografia
-- Use formato "City, Country" (ex: "Porto, Portugal")
-- Tente uma cidade maior próxima
+**Solutions**:
+- Check the spelling
+- Use the format ‘City, Country’ (e.g. ‘Porto, Portugal’)
+- Try a larger city nearby
 
-### Erro de CORS
+### CORS error
 
-**Causa**: Backend não está configurado para aceitar requests do frontend.
+**Cause**: Backend is not configured to accept requests from the frontend.
 
-**Solução**:
-- Verifique `config/initializers/cors.rb` no backend
-- Adicione a origin do frontend (localhost:5173)
+**Solution**:
+- Check `config/initializers/cors.rb` in the backend
+- Add the frontend origin (localhost:5173)
 
-### Date Picker não abre
+### Date Picker does not open
 
-**Causa**: Conflito de CSS ou JavaScript não carregado.
+**Cause**: CSS conflict or JavaScript not loaded.
 
-**Solução**:
-- Limpe o cache do navegador
-- Verifique se `react-datepicker/dist/react-datepicker.css` está importado
+**Solution**:
+- Clear your browser cache
+- Check that `react-datepicker/dist/react-datepicker.css` is imported
 
 ## 🚀 Deploy
 
-### Build de Produção
+### Production Build
 
 ```bash
 npm run build
 ```
 
-Os arquivos estarão em `dist/`.
+The files will be in `dist/`.
 
-### Deploy em Vercel
+### Deploy to Vercel
 
 ```bash
-# Instalar Vercel CLI
+# Install Vercel CLI
 npm i -g vercel
 
 # Deploy
 vercel
 ```
 
-### Deploy em Netlify
+### Deploy to Netlify
 
 ```bash
 # Build
 npm run build
 
-# Deploy via Netlify CLI ou arrastar pasta dist/ no site
+# Deploy via Netlify CLI or drag the dist/ folder to the website
 ```
 
-### Configurar Variáveis de Ambiente
+### Configure Environment Variables
 
-Não esqueça de configurar `VITE_API_URL` com a URL do backend em produção:
+Do not forget to configure `VITE_API_URL` with the production backend URL:
 
 ```
 VITE_API_URL=https://your-backend.herokuapp.com/api/v1
@@ -281,14 +281,14 @@ VITE_API_URL=https://your-backend.herokuapp.com/api/v1
 
 ## 📈 Performance
 
-### Otimizações Implementadas
+### Implemented Optimisations
 
-- Code splitting com Vite
-- Lazy loading de componentes (quando necessário)
-- Memoization de callbacks (useCallback)
-- Otimização de re-renders
-- CSS minificado em produção
-- Assets otimizados
+- Code splitting with Vite
+- Lazy loading of components (when necessary)
+- Memoisation of callbacks (useCallback)
+- Optimisation of re-renders
+- Minified CSS in production
+- Optimised assets
 
 ### Lighthouse Score
 
@@ -299,43 +299,43 @@ VITE_API_URL=https://your-backend.herokuapp.com/api/v1
 
 ## 🧪 Testing
 
-(Testes não foram implementados neste caso, mas aqui está como adicionar):
+(Tests have not been implemented in this case, but here is how to add them):
 
 ```bash
-# Instalar dependências de teste
+# Install test dependencies
 npm install -D @testing-library/react @testing-library/jest-dom vitest
 
-# Executar testes
+# Run tests
 npm test
 ```
 
-## 📝 Convenções de Código
+## 📝 Code Conventions
 
-- **Componentes**: PascalCase (`LocationForm.jsx`)
-- **Funções/variáveis**: camelCase (`fetchData`)
+- **Components**: PascalCase (`LocationForm.jsx`)
+- **Functions/variables**: camelCase (`fetchData`)
 - **CSS classes**: kebab-case (`location-form`)
-- **Constantes**: UPPER_SNAKE_CASE (`API_BASE_URL`)
+- **Constants**: UPPER_SNAKE_CASE (`API_BASE_URL`)
 
-## 🤝 Contribuindo
+## 🤝 Contributing
 
-1. Fork o projeto
-2. Crie uma branch para sua feature
-3. Commit suas mudanças
-4. Push para a branch
-5. Abra um Pull Request
+1. Fork the project
+2. Create a branch for your feature
+3. Commit your changes
+4. Push to the branch
+5. Open a Pull Request
 
-## 📄 Licença
+## 📄 Licence
 
-Este projeto é parte de um case study para Jumpseller.
+This project is part of a case study for Jumpseller.
 
-## 🆘 Suporte
+## 🆘 Support
 
-Para problemas ou dúvidas:
-1. Verifique a documentação
-2. Revise os logs do console
-3. Verifique a conexão com o backend
-4. Consulte o README do backend
+For problems or questions:
+1. Check the documentation
+2. Review the console logs
+3. Check the connection to the backend
+4. Consult the backend README
 
 ---
 
-**Frontend desenvolvido com ❤️ usando React + Vite**
+**Frontend developed with ❤️ using React + Vite**

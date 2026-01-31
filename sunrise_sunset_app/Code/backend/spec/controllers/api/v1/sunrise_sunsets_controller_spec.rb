@@ -63,7 +63,7 @@ RSpec.describe Api::V1::SunriseSunsetsController, type: :request do
           .with('Lisbon')
           .and_return(geocoding_response)
         
-        stub_request(:get, "https://api.sunrisesunset.io/json")
+        stub_request(:get, %r{https://api\.sunrisesunset\.io/json})
           .with(query: hash_including({
             lat: '38.7223',
             lng: '-9.1393'
@@ -170,7 +170,7 @@ RSpec.describe Api::V1::SunriseSunsetsController, type: :request do
       before do
         allow(GeocodingService).to receive(:coordinates_for).and_return(geocoding_response)
         
-        stub_request(:get, "https://api.sunrisesunset.io/json")
+        stub_request(:get, %r{https://api\.sunrisesunset\.io/json})
           .to_return(status: 500)
       end
       

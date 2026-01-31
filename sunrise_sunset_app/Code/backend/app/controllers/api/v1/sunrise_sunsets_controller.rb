@@ -18,6 +18,11 @@ module Api
         start_date = params.require(:start_date)
         end_date = params.require(:end_date)
         
+        # Validate date range
+        if end_date < start_date
+          raise SunriseSunsetApiService::InvalidDateRangeError, "End date cannot be before start date"
+        end
+
         Rails.logger.info("Fetching data for location: #{location}, dates: #{start_date} to #{end_date}")
         
         # Step 1: Geocode the location to get coordinates
