@@ -1,141 +1,118 @@
 # 🌅 Sunrise Sunset App
 
-Aplicação full-stack para consultar e visualizar dados históricos de nascer e pôr do sol para diferentes localizações, utilizando a API SunriseSunset.io.
+Full-stack application for consulting and viewing historical sunrise and sunset data for different locations, using the SunriseSunset.io API.
 
-## 📋 Índice
+## 📋 Index
 
-- [Sobre o Projeto](#sobre-o-projeto)
-- [Tecnologias Utilizadas](#tecnologias-utilizadas)
-- [Características](#características)
-- [Estrutura do Projeto](#estrutura-do-projeto)
-- [Instalação e Configuração](#instalação-e-configuração)
-- [Como Usar](#como-usar)
+- [About the Project](#about-the-project)
+- [Technologies Used](#technologies-used)
+- [Features](#features)
+- [Project Structure](#project-structure)
+- [Installation and Configuration](#installation-and-configuration)
+- [How to Use](#how-to-use)
 - [API Endpoints](#api-endpoints)
-- [Testes](#testes)
-- [Decisões de Design](#decisões-de-design)
-- [Melhorias Futuras](#melhorias-futuras)
+- [Testing](#testing)
+- [Design Decisions](#design-decisions)
+- [Future Improvements](#future-improvements)
 
-## 🎯 Sobre o Projeto
+## 🎯 About the Project
 
-Este projeto foi desenvolvido como um case study para demonstrar habilidades em desenvolvimento full-stack, integrando:
+This project was developed as a case study to demonstrate full-stack development skills, integrating:
 
-- **Backend**: Ruby on Rails API para gerenciar dados e comunicação com API externa
-- **Frontend**: React para interface de usuário interativa
-- **External API**: SunriseSunset.io para obter dados astronômicos
+- **Backend**: Ruby on Rails API to manage data and communication with external API
+- **Frontend**: React for interactive user interface
+- **External API**: SunriseSunset.io to obtain astronomical data
 
-### Funcionalidades Principais:
+### Main Features:
 
-1. ✅ Busca de dados de nascer/pôr do sol por localização e intervalo de datas
-2. ✅ Cache inteligente em database para evitar chamadas desnecessárias à API
-3. ✅ Geocoding automático de nomes de cidades
-4. ✅ Visualização em gráficos (charts) e tabelas
-5. ✅ Tratamento robusto de erros (localizações inválidas, regiões polares, etc)
-6. ✅ Testes automatizados
+1. ✅ Search for sunrise/sunset data by location and date range
+2. ✅ Intelligent database caching to avoid unnecessary API calls
+3. ✅ Automatic geocoding of city names
+4. ✅ Visualisation in charts and tables
+5. ✅ Robust error handling (invalid locations, polar regions, etc.)
+6. ✅ Automated testing
 
-## 🚀 Tecnologias Utilizadas
+## 🚀 Technologies Used
 
 ### Backend
 - **Ruby** 3.2+
 - **Ruby on Rails** 7.1+ (API mode)
 - **PostgreSQL** (Database)
 - **HTTParty** (HTTP client)
-- **Geocoder** (Geocoding service)
-- **RSpec** (Testing)
+- **Geocoder** (geocoding service)
+- **RSpec** (testing)
 
 ### Frontend
 - **React** 18+
 - **Axios** (HTTP client)
-- **Recharts** (Data visualization)
-- **React DatePicker** (Date selection)
-- **date-fns** (Date utilities)
+- **Recharts** (data visualisation)
+- **React DatePicker** (date selection)
+- **date-fns** (date utilities)
 
-### APIs Externas
-- [SunriseSunset.io API](https://sunrisesunset.io/api/) - Dados de nascer/pôr do sol
+### External APIs
+- [SunriseSunset.io API](https://sunrisesunset.io/api/) - Sunrise/sunset data
 - Nominatim (OpenStreetMap) - Geocoding
 
-## ✨ Características
+## ✨ Features
 
-### Otimizações Implementadas:
+### Implemented Optimisations:
 
-1. **Database Caching**: Dados já consultados são armazenados localmente
-2. **Batch Requests**: Uma única chamada para múltiplas datas (até 365 dias)
-3. **Geocoding Cache**: Coordenadas de localizações são cacheadas
-4. **Smart Data Fetching**: Busca apenas os dados que não existem no cache
+1. **Database cache**: Data that has already been queried is stored locally
+2. **Batch requests**: A single call for multiple dates (up to 365 days)
+3. **Geocoding cache**: location coordinates are cached
+4. **Smart Data Fetching**: only searches for data that does not exist in the cache
 
-### Tratamento de Casos Especiais:
+### Handling special cases:
 
-- ❄️ **Regiões Polares**: Dias em que o sol não nasce ou não se põe
-- 🗺️ **Localizações Inválidas**: Feedback claro quando cidade não é encontrada
-- 📅 **Validação de Datas**: Verifica ranges e formatos inválidos
-- 🔄 **API Failures**: Retry logic e mensagens de erro descritivas
+- ❄️ **Polar regions**: days when the sun does not rise or set
+- 🗺️ **Invalid locations**: Clear feedback when the city is not found
+- 📅 **Date validation**: Checks for invalid ranges and formats
+- 🔄 **API failures**: Retry logic and descriptive error messages
 
-## 📁 Estrutura do Projeto
+## 📁 Project structure
 
-```
-sunrise-sunset-app/
-├── backend/                 # Ruby on Rails API
-│   ├── app/
-│   │   ├── controllers/    # API controllers
-│   │   ├── models/         # Database models
-│   │   ├── services/       # Business logic
-│   │   └── serializers/    # JSON serializers
-│   ├── config/             # Rails configuration
-│   ├── db/                 # Database migrations
-│   └── spec/               # RSpec tests
-│
-├── frontend/               # React Application
-│   ├── src/
-│   │   ├── components/    # React components
-│   │   ├── services/      # API service
-│   │   └── utils/         # Helper functions
-│   └── public/
-│
-└── docs/                  # Documentation
-    ├── PROJECT_STRUCTURE.md
-    ├── REQUIREMENTS_GUIDE.md
-    └── API_DOCUMENTATION.md
-```
+See Documents
 
-## 🛠️ Instalação e Configuração
+## 🛠️ Installation and Configuration
 
-### Pré-requisitos
+### Prerequisites
 
-- Ruby 3.2+ e Rails 7.1+
-- Node.js 18+ e npm
-- PostgreSQL (ou SQLite para desenvolvimento)
+- Ruby 3.2+ and Rails 7.1+
+- Node.js 18+ and npm
+- PostgreSQL (or SQLite for development)
 - Git
 
-### 1. Clone o Repositório
+### 1. Clone the Repository
 
 ```bash
 git clone https://github.com/seu-usuario/sunrise-sunset-app.git
 cd sunrise-sunset-app
 ```
 
-### 2. Setup Backend
+### 2. Set Up Backend
 
 ```bash
 cd backend
 
-# Instalar dependências
+# Install dependencies
 bundle install
 
-# Configurar database
+# Configure database
 cp config/database.yml.example config/database.yml
-# Editar config/database.yml com suas credenciais
+# Edit config/database.yml with your credentials
 
-# Criar e configurar banco de dados
+# Create and configure database
 rails db:create
 rails db:migrate
 
-# (Opcional) Popular com dados de exemplo
+# (Optional) Populate with sample data
 rails db:seed
 
-# Iniciar servidor (porta 3000)
+# Start server (port 3000)
 rails server
 ```
 
-**Configuração de Ambiente (backend/.env):**
+**Environment configuration (backend/.env):**
 
 ```env
 DATABASE_URL=postgresql://user:password@localhost/sunrise_db
@@ -143,55 +120,44 @@ RAILS_ENV=development
 GEOCODER_EMAIL=your-email@example.com
 ```
 
-### 3. Setup Frontend
+### 3. Frontend Setup
 
 ```bash
 cd ../frontend
 
-# Instalar dependências
+# Install dependencies
 npm install
 
-# Configurar variáveis de ambiente
+# Configure environment variables
 cp .env.example .env
 # VITE_API_URL=http://localhost:3000/api/v1
 
-# Iniciar servidor de desenvolvimento (porta 5173 ou 3001)
+# Start development server (port 5173 or 3001)
 npm run dev
 ```
 
-### 4. Verificar Instalação
+### 4. Verify Installation
 
 - Backend: http://localhost:3000/health
-- Frontend: http://localhost:5173 (ou porta indicada)
+- Frontend: http://localhost:5173 (or indicated port)
 
-## 💻 Como Usar
+## 💻 How to Use
 
-### Interface Web:
+### Web Interface:
 
-1. **Digite uma Localização**: Ex: "Lisbon", "Berlin", "Tokyo"
-2. **Selecione Intervalo de Datas**: Data inicial e final (máx. 365 dias)
-3. **Clique em "Get Sunrise & Sunset Data"**
-4. **Visualize os Resultados**:
-   - Gráfico de linha mostrando evolução ao longo do tempo
-   - Tabela detalhada com todos os dados
+1. **Enter a Location**: E.g. ‘Lisbon,’ ‘Berlin,’ ‘Tokyo’
+2. **Select Date Range**: Start and end date (max. 365 days)
+3. **Click on ‘Get Sunrise & Sunset Data’**
+4. **View the Results**:
+   - Line graph showing evolution over time
+   - Detailed table with all data
 
-### Exemplo de Uso via cURL:
-
-```bash
-curl -X POST http://localhost:3000/api/v1/sunrise_sunsets \
-  -H "Content-Type: application/json" \
-  -d '{
-    "location": "Lisbon",
-    "start_date": "2024-01-01",
-    "end_date": "2024-01-31"
-  }'
-```
 
 ## 📡 API Endpoints
 
 ### POST /api/v1/sunrise_sunsets
 
-Busca ou cria registros de nascer/pôr do sol para uma localização e range de datas.
+Searches for or creates sunrise/sunset records for a location and date range.
 
 **Request Body:**
 ```json
@@ -226,127 +192,127 @@ Busca ou cria registros de nascer/pôr do sol para uma localização e range de 
 
 **Error Responses:**
 
-- `400 Bad Request`: Parâmetros faltando ou inválidos
-- `422 Unprocessable Entity`: Localização não encontrada
-- `502 Bad Gateway`: Falha na API externa
+- `400 Bad Request`: Missing or invalid parameters
+- `422 Unprocessable Entity`: Location not found
+- `502 Bad Gateway`: External API failure
 
 ### GET /api/v1/sunrise_sunsets
 
-Lista registros existentes (com filtros opcionais).
+List existing records (with optional filters).
 
 **Query Parameters:**
-- `location` (string, opcional)
-- `start_date` (date, opcional)
-- `end_date` (date, opcional)
+- `location` (string, optional)
+- `start_date` (date, optional)
+- `end_date` (date, optional)
 
-## 🧪 Testes
+## 🧪 Tests
 
 ### Backend Tests (RSpec)
 
 ```bash
 cd backend
 
-# Rodar todos os testes
+# Run all tests
 bundle exec rspec
 
-# Rodar testes específicos
+# Run specific tests
 bundle exec rspec spec/models/sunrise_sunset_record_spec.rb
 bundle exec rspec spec/services/
 
-# Com cobertura de código
+# With code coverage
 COVERAGE=true bundle exec rspec
 ```
 
-**Cobertura de Testes:**
-- Models: Validações, scopes, métodos
-- Services: Integração com APIs externas (com WebMock)
-- Controllers: Request specs para todos endpoints
-- Edge cases: Regiões polares, erros de API, validações
+**Test Coverage:**
+- Models: Validations, scopes, methods
+- Services: Integration with external APIs (with WebMock)
+- Controllers: Request specs for all endpoints
+- Edge cases: Polar regions, API errors, validations
 
 ### Frontend Tests
 
 ```bash
 cd frontend
 
-# Rodar testes
+# Run tests
 npm test
 
-# Com cobertura
+# With coverage
 npm test -- --coverage
 ```
 
-## 🎨 Decisões de Design
+## 🎨 Design Decisions
 
 ### Backend:
 
-1. **Rails API Mode**: Mais leve, focado em JSON API
-2. **Service Objects**: Lógica de negócio separada dos controllers
-3. **Database Caching**: Evita custos e latência de API externa
-4. **Geocoding Local**: Usa Nominatim (grátis) em vez de Google Maps API
-5. **JSONAPI Serializer**: Formato consistente de resposta
+1. **Rails API Mode**: Lighter, focused on JSON API
+2. **Service Objects**: Business logic separated from controllers
+3. **Database Caching**: Avoids external API costs and latency
+4. **Local Geocoding**: Uses Nominatim (free) instead of Google Maps API
+5. **JSONAPI Serialiser**: Consistent response format
 
 ### Frontend:
 
-1. **Recharts**: Biblioteca declarativa e React-friendly para gráficos
-2. **Axios**: Cliente HTTP mais robusto que fetch
-3. **date-fns**: Mais leve que Moment.js
-4. **Component Composition**: Componentes pequenos e reutilizáveis
+1. **Recharts**: Declarative and React-friendly library for charts
+2. **Axios**: More robust HTTP client than fetch
+3. **date-fns**: Lighter than Moment.js
+4. **Component Composition**: Small, reusable components
 
 ### Database Schema:
 
-- Índices compostos para queries otimizadas
-- Armazenamento de strings para times (flexibilidade com formatos)
-- Campo `status` para casos especiais (polar night, etc)
+- Compound indexes for optimised queries
+- String storage for teams (flexibility with formats)
+- `status` field for special cases (polar night, etc.)
 
-## 🔮 Melhorias Futuras
+## 🔮 Future Improvements
 
-### Curto Prazo:
-- [ ] Adicionar testes E2E (Cypress)
-- [ ] Implementar dark mode
-- [ ] Export para CSV/PDF
-- [ ] Comparação lado-a-lado de localizações
+### Short Term:
+- [ ] Add E2E tests (Cypress)
+- [ ] Implement dark mode
+- [ ] Export to CSV/PDF
+- [ ] Side-by-side comparison of locations
 
-### Médio Prazo:
-- [ ] Background jobs com Sidekiq para fetching assíncrono
-- [ ] WebSockets para updates em tempo real
-- [ ] Cache com Redis
-- [ ] Rate limiting no backend
+### Medium Term:
+- [ ] Background jobs with Sidekiq for asynchronous fetching
+- [ ] WebSockets for real-time updates
+- [ ] Cache with Redis
+- [ ] Rate limiting on the backend
 
-### Longo Prazo:
-- [ ] Sistema de autenticação de usuários
-- [ ] Favoritos e histórico de pesquisas
-- [ ] Notificações de golden hour
+### Long Term:
+- [ ] User authentication system
+- [ ] Favourites and search history
+- [ ] Golden hour notifications
 - [ ] Mobile app (React Native)
 
-## 📝 Documentação Adicional
+## 📝 Additional Documentation
 
-- [Estrutura Detalhada do Projeto](./PROJECT_STRUCTURE.md)
-- [Guia Completo de Requisitos](./REQUIREMENTS_GUIDE.md)
-- [Documentação da API](./docs/API_DOCUMENTATION.md)
+- [Detailed Project Structure](./PROJECT_STRUCTURE.md)
+- [Complete Requirements Guide](./REQUIREMENTS_GUIDE.md)
+- [API Documentation](./docs/API_DOCUMENTATION.md)
 
-## 🤝 Contribuições
+## 🤝 Contributions
 
-Este é um projeto de demonstração, mas contribuições são bem-vindas!
+This is a demo project, but contributions are welcome!
 
-1. Fork o projeto
-2. Crie uma branch para sua feature (`git checkout -b feature/AmazingFeature`)
-3. Commit suas mudanças (`git commit -m 'Add some AmazingFeature'`)
-4. Push para a branch (`git push origin feature/AmazingFeature`)
-5. Abra um Pull Request
+1. Fork the project
+2. Create a branch for your feature (`git checkout -b feature/AmazingFeature`)
+3. Commit your changes (`git commit -m “Add some AmazingFeature”`)
+4. Push to the branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
 
-## 📄 Licença
+## 📄 Licence
 
-Este projeto é livre para uso educacional e demonstração.
+This project is free for educational and demonstration purposes.
 
-## 👤 Autor
+## 👤 Author
 
-Desenvolvido como case study para Jumpseller
+Developed as a case study for Jumpseller
 
-## 🙏 Agradecimentos
+## 🙏 Acknowledgements
 
-- [SunriseSunset.io](https://sunrisesunset.io) pela API gratuita
-- [Nominatim/OpenStreetMap](https://nominatim.org) pelo serviço de geocoding
-- Comunidades Ruby on Rails e React
+- [SunriseSunset.io](https://sunrisesunset.io) for the free API
+- [Nominatim/OpenStreetMap](https://nominatim.org) for the geocoding service
+- Ruby on Rails and React communities
 
 ---
 
@@ -356,8 +322,8 @@ Desenvolvido como case study para Jumpseller
 # Backend
 cd backend && bundle install && rails db:setup && rails server
 
-# Frontend (nova janela)
+# Frontend (new window)
 cd frontend && npm install && npm run dev
 ```
 
-Acesse: http://localhost:5173
+Access: http://localhost:5173
