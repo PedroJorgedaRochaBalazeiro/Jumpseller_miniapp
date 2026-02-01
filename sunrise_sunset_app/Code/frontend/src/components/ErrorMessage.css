@@ -8,9 +8,23 @@
 }
 
 @keyframes shake {
-  0%, 100% { transform: translateX(0); }
-  10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
-  20%, 40%, 60%, 80% { transform: translateX(5px); }
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+  10%,
+  30%,
+  50%,
+  70%,
+  90% {
+    transform: translateX(-5px);
+  }
+  20%,
+  40%,
+  60%,
+  80% {
+    transform: translateX(5px);
+  }
 }
 
 .error-box {
@@ -114,15 +128,15 @@
   .error-container {
     padding: 1.5rem 1rem;
   }
-  
+
   .error-header h3 {
     font-size: 1.3rem;
   }
-  
+
   .error-icon {
     font-size: 2rem;
   }
-  
+
   .error-suggestions ul {
     padding-left: 1.25rem;
   }
@@ -132,18 +146,18 @@
   .error-container {
     padding: 1rem 0.75rem;
   }
-  
+
   .error-header {
     flex-direction: column;
     text-align: center;
     gap: 0.5rem;
   }
-  
+
   .error-message,
   .error-suggestions {
     font-size: 0.9rem;
   }
-  
+
   .dismiss-button {
     width: 100%;
     justify-content: center;

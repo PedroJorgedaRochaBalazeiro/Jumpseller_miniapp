@@ -36,7 +36,11 @@
 }
 
 .data-table thead {
-  background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
+  background: linear-gradient(
+    135deg,
+    var(--primary-color),
+    var(--primary-dark)
+  );
   color: white;
 }
 
@@ -91,7 +95,7 @@
 }
 
 .time-cell {
-  font-family: 'Courier New', monospace;
+  font-family: "Courier New", monospace;
   white-space: nowrap;
 }
 
@@ -180,7 +184,7 @@
   .data-table {
     font-size: 0.9rem;
   }
-  
+
   .data-table th,
   .data-table td {
     padding: 0.75rem;
@@ -191,34 +195,34 @@
   .table-container {
     padding: 1.5rem 1rem;
   }
-  
+
   .table-header h3 {
     font-size: 1.3rem;
   }
-  
+
   .table-wrapper {
     border-radius: 4px;
   }
-  
+
   .data-table {
     font-size: 0.85rem;
   }
-  
+
   .data-table th,
   .data-table td {
     padding: 0.625rem;
   }
-  
+
   /* Stack cells vertically on very small screens */
   .date-display {
     flex-direction: row;
     gap: 0.5rem;
   }
-  
+
   .date-short {
     display: none;
   }
-  
+
   .duration-secondary {
     display: none;
   }
@@ -228,13 +232,13 @@
   .table-container {
     padding: 1rem 0.5rem;
   }
-  
+
   .data-table th,
   .data-table td {
     padding: 0.5rem 0.375rem;
     font-size: 0.8rem;
   }
-  
+
   .table-info {
     font-size: 0.85rem;
     padding: 0.75rem;
@@ -247,11 +251,11 @@
     box-shadow: none;
     border: 1px solid #ddd;
   }
-  
+
   .data-table tbody tr:hover {
     background-color: transparent;
   }
-  
+
   .table-footer {
     page-break-inside: avoid;
   }

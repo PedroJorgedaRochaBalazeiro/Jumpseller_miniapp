@@ -1,43 +1,43 @@
-# Sunrise Sunset App - Requisitos Técnicos Detalhados
+# Sunrise Sunset App - Detailed Technical Requirements
 
-## 1. REQUISITOS DO BACKEND (Ruby)
+## 1. BACKEND REQUIREMENTS (Ruby)
 
-### 1.1 Setup do Projeto Rails
+### 1.1 Rails Project Setup
 
 **Framework:** Ruby on Rails 7.1+ (API mode)
 **Ruby Version:** 3.2+
-**Database:** PostgreSQL (recomendado) ou SQLite3
+**Database:** PostgreSQL (recommended) or SQLite3
 
 ```bash
-# Comando para criar o projeto
-rails new sunrise-sunset-backend --api --database=postgresql
-cd sunrise-sunset-backend
+# Command to create the project
+rails new backend --api --database=postgresql
+cd backend
 ```
 
 ### 1.2 Gems Necessárias
 
-Adicionar ao `Gemfile`:
+Add to `Gemfile`:
 
 ```ruby
 # Gemfile
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby '3.2.0' # ou superior
+ruby '3.2.0' # or higher
 
 gem 'rails', '~> 7.1.0'
-gem 'pg' # ou 'sqlite3' se preferir
+gem 'pg' # or “sqlite3” if preferred
 gem 'puma', '~> 6.0'
 
 # API & HTTP
-gem 'rack-cors' # CORS para comunicação com frontend
-gem 'httparty' # Cliente HTTP para chamar API externa
-gem 'geocoder' # Converter nomes de cidades em coordenadas
+gem 'rack-cors' # CORS for communication with frontend
+gem 'httparty' # HTTP client to call external API
+gem 'geocoder' # Convert city names to coordinates
 
-# Serialização
-gem 'jsonapi-serializer' # ou 'active_model_serializers'
+# Serialisation
+gem 'jsonapi-serializer' # or “active_model_serializers”
 
-# Background jobs (opcional, para otimização futura)
+# Background jobs (optional, for future optimisation)
 # gem 'sidekiq'
 
 group :development, :test do
@@ -45,23 +45,23 @@ group :development, :test do
   gem 'factory_bot_rails'
   gem 'faker'
   gem 'pry-rails'
-  gem 'dotenv-rails' # Variáveis de ambiente
+  gem 'dotenv-rails' # Environment variables
 end
 
 group :test do
   gem 'webmock' # Mock HTTP requests
-  gem 'vcr' # Gravar/replay HTTP interactions
+  gem 'vcr' # Record/replay HTTP interactions
   gem 'shoulda-matchers', '~> 5.0'
   gem 'database_cleaner-active_record'
-  gem 'simplecov', require: false # Cobertura de código
+  gem 'simplecov', require: false # Code coverage
 end
 
 group :development do
-  gem 'annotate' # Adicionar schema info nos models
+  gem 'annotate' # Add schema info to models
 end
 ```
 
-### 1.3 Configuração Inicial
+### 1.3 Initial Configuration
 
 **1.3.1 CORS (config/initializers/cors.rb)**
 
@@ -69,9 +69,9 @@ end
 # config/initializers/cors.rb
 Rails.application.config.middleware.insert_before 0, Rack::Cors do
   allow do
-    origins 'localhost:3001', 'localhost:5173' # Frontend URLs
+    origins “localhost:3001”, “localhost:5173” # Frontend URLs
     
-    resource '*',
+    resource “*”,
       headers: :any,
       methods: [:get, :post, :put, :patch, :delete, :options, :head],
       credentials: true
@@ -88,18 +88,18 @@ Geocoder.configure(
   lookup: :nominatim,
   use_https: true,
   
-  # Nominatim (OpenStreetMap) - Grátis
+  # Nominatim (OpenStreetMap) - Free
   nominatim: {
-    email: 'your-email@example.com' # Requerido pela política do Nominatim
+    email: “your-email@example.com” # Required by Nominatim policy
   },
   
-  # Cache (opcional mas recomendado)
-  cache: Redis.new, # ou Rails.cache
-  cache_prefix: 'geocoder:'
-)
+  # Cache (optional but recommended)
+  cache: Redis.new, # or Rails.cache
+  cache_prefix: “geocoder:”)
+
 ```
 
-### 1.4 Database Model
+### 1.4 Database model
 
 **Migration:**
 
@@ -108,13 +108,13 @@ Geocoder.configure(
 class CreateSunriseSunsetRecords < ActiveRecord::Migration[7.1]
   def change
     create_table :sunrise_sunset_records do |t|
-      # Localização
+      # Location
       t.string :location, null: false
       t.decimal :latitude, precision: 10, scale: 6, null: false
       t.decimal :longitude, precision: 10, scale: 6, null: false
       t.date :date, null: false
       
-      # Dados astronômicos
+      # Astronomical data
       t.string :sunrise
       t.string :sunset
       t.string :solar_noon
@@ -134,12 +134,12 @@ class CreateSunriseSunsetRecords < ActiveRecord::Migration[7.1]
       
       # Metadata
       t.string :timezone
-      t.string :status # Para casos especiais (polar night, etc)
+      t.string :status # For special cases (polar night, etc.)
 
       t.timestamps
     end
     
-    # Índices para performance
+    # Indexes for performance
     add_index :sunrise_sunset_records, [:location, :date], unique: true
     add_index :sunrise_sunset_records, [:latitude, :longitude, :date]
     add_index :sunrise_sunset_records, :date
@@ -153,7 +153,7 @@ end
 ```ruby
 # app/models/sunrise_sunset_record.rb
 class SunriseSunsetRecord < ApplicationRecord
-  # Validações
+  # Validations
   validates :location, presence: true
   validates :latitude, presence: true, 
             numericality: { greater_than_or_equal_to: -90, less_than_or_equal_to: 90 }
@@ -167,7 +167,7 @@ class SunriseSunsetRecord < ApplicationRecord
   scope :for_date_range, ->(start_date, end_date) { where(date: start_date..end_date) }
   scope :recent, -> { order(created_at: :desc) }
   
-  # Métodos de classe
+  # Class Methods
   def self.find_or_fetch(location:, start_date:, end_date:)
     existing_records = for_location(location)
                         .for_date_range(start_date, end_date)
@@ -183,7 +183,7 @@ class SunriseSunsetRecord < ApplicationRecord
     }
   end
   
-  # Métodos de instância
+  # Instance Methods
   def polar_region?
     status.present? && status.include?('POLAR')
   end
@@ -200,7 +200,7 @@ class SunriseSunsetRecord < ApplicationRecord
   private
   
   def parse_duration(duration_string)
-    # Converte "09:44:52" em minutos ou segundos
+    # Convert "09:44:52" to minutes or seconds
     return nil unless duration_string.present?
     
     parts = duration_string.split(':').map(&:to_i)
@@ -329,8 +329,8 @@ class SunriseSunsetApiService
     when 'INVALID_REQUEST'
       raise ApiError, 'Invalid request parameters'
     when 'ZERO_RESULTS'
-      # Caso especial: região polar
-      return [] # Retornar array vazio ou dados especiais
+      # Special case: Polar region
+      return [] # Return empty array or special data
     else
       raise ApiError, "API error: #{status}"
     end
@@ -427,7 +427,7 @@ module Api
         
         api_results = service.fetch_data
         
-        # Criar registros para as datas faltantes
+        # Create records for missing date
         api_results.each do |result|
           result_date = Date.parse(result['date'])
           
@@ -523,9 +523,9 @@ Rails.application.routes.draw do
 end
 ```
 
-### 1.9 Testes (RSpec)
+### 1.9 Tests (RSpec)
 
-**spec/spec_helper.rb e rails_helper.rb** - Configuração padrão
+**spec/spec_helper.rb e rails_helper.rb** - Standard configuration
 
 **Model Spec:**
 
@@ -557,7 +557,7 @@ RSpec.describe SunriseSunsetRecord, type: :model do
 end
 ```
 
-**Service Spec com WebMock:**
+**Service Spec with WebMock:**
 
 ```ruby
 # spec/services/sunrise_sunset_api_service_spec.rb
@@ -604,22 +604,22 @@ end
 
 ---
 
-## 2. REQUISITOS DO FRONTEND (React)
+## 2. FRONTEND REQUIREMENTS (React)
 
-### 2.1 Setup do Projeto
+### 2.1 Project Setup
 
 ```bash
-# Opção 1: Vite (Recomendado - mais rápido)
-npm create vite@latest sunrise-sunset-frontend -- --template react
-cd sunrise-sunset-frontend
+# Option 1: Vite (Recommended - faster)
+npm create vite@latest frontend -- --template react
+cd frontend
 npm install
 
-# Opção 2: Create React App
-npx create-react-app sunrise-sunset-frontend
-cd sunrise-sunset-frontend
+# Option 2: Create React App
+npx create-react-app frontend
+cd frontend
 ```
 
-### 2.2 Dependências Necessárias
+### 2.2 Necessary Dependencies
 
 ```json
 {
@@ -640,24 +640,24 @@ cd sunrise-sunset-frontend
 }
 ```
 
-Instalar:
+Install:
 
 ```bash
 npm install axios recharts date-fns react-datepicker
 ```
 
-### 2.3 Estrutura de Componentes
+### 2.3 Component Structure
 
-Veja no `PROJECT_STRUCTURE.md` para detalhes da estrutura de pastas.
+See `PROJECT_STRUCTURE.md` for details on the folder structure.
 
-### 2.4 Variáveis de Ambiente
+### 2.4 Environment Variables
 
 ```bash
 # .env
 REACT_APP_API_URL=http://localhost:3000/api/v1
 ```
 
-ou para Vite:
+or for Vite:
 
 ```bash
 # .env
@@ -666,92 +666,92 @@ VITE_API_URL=http://localhost:3000/api/v1
 
 ---
 
-## 3. CHECKLIST DE IMPLEMENTAÇÃO
+## 3. IMPLEMENTATION CHECKLIST
 
 ### Backend ✓
-- [ ] Criar projeto Rails API
-- [ ] Instalar e configurar gems
-- [ ] Configurar CORS
-- [ ] Criar migration e model
-- [ ] Implementar GeocodingService
-- [ ] Implementar SunriseSunsetApiService
-- [ ] Criar controller com endpoints
-- [ ] Implementar serializer
-- [ ] Configurar routes
-- [ ] Escrever testes (model, services, controller)
-- [ ] Testar endpoints manualmente (Postman/cURL)
+- [ ] Create Rails API project
+- [ ] Install and configure gems
+- [ ] Configure CORS
+- [ ] Create migration and model
+- [ ] Implement GeocodingService
+- [ ] Implement SunriseSunsetApiService
+- [ ] Create controller with endpoints
+- [ ] Implement serialiser
+- [ ] Configure routes
+- [ ] Write tests (model, services, controller)
+- [ ] Test endpoints manually (Postman/cURL)
 
 ### Frontend ✓
-- [ ] Criar projeto React
-- [ ] Instalar dependências
-- [ ] Configurar variáveis de ambiente
-- [ ] Criar serviço de API (apiService.js)
-- [ ] Criar componente LocationForm
-- [ ] Criar componente DateRangePicker
-- [ ] Criar componente DataChart (Recharts)
-- [ ] Criar componente DataTable
-- [ ] Criar componentes de feedback (Loading, Error)
-- [ ] Integrar tudo no App.jsx
-- [ ] Estilizar aplicação
-- [ ] Testar interações
+- [ ] Create React project
+- [ ] Install dependencies
+- [ ] Configure environment variables
+- [ ] Create API service (apiService.js)
+- [ ] Create LocationForm component
+- [ ] Create DateRangePicker component
+- [ ] Create DataChart component (Recharts)
+- [ ] Create DataTable component
+- [ ] Create feedback components (Loading, Error)
+- [ ] Integrate everything into App.jsx
+- [ ] Style application
+- [ ] Test interactions
 
-### Integração ✓
-- [ ] Testar comunicação frontend-backend
-- [ ] Validar tratamento de erros
-- [ ] Testar casos especiais (regiões polares, datas inválidas)
-- [ ] Verificar performance com múltiplas requisições
+### Integration ✓
+- [ ] Test frontend-backend communication
+- [ ] Validate error handling
+- [ ] Test special cases (polar regions, invalid dates)
+- [ ] Check performance with multiple requests
 
-### Documentação ✓
-- [ ] README principal do projeto
-- [ ] README do backend
-- [ ] README do frontend
-- [ ] Documentação da API
-- [ ] Gravar screencast demonstrando features
-
----
-
-## 4. ESTIMATIVA DE TEMPO (Total: ~6 horas)
-
-- **Setup Inicial** (Backend + Frontend): 45min
-- **Backend Development**: 2h
-  - Models + Services: 1h
-  - Controller + Routes: 30min
-  - Testes: 30min
-- **Frontend Development**: 2h
-  - Componentes base: 45min
-  - Chart + Table: 45min
-  - Styling + Polish: 30min
-- **Integration & Testing**: 45min
-- **Documentation + Screencast**: 30min
+### Documentation ✓
+- [ ] Main project README
+- [ ] Backend README
+- [ ] Frontend README
+- [ ] API documentation
+- [ ] Record screencast demonstrating features
 
 ---
 
-## 5. PONTOS DE ATENÇÃO
+## 4. TIME ESTIMATE (Total: ~6 hours)
 
-### Casos Especiais a Testar:
-1. **Regiões Polares** (ex: Tromsø, Noruega no inverno)
-   - Sol não nasce em alguns dias
-   - API retorna valores especiais
+- **Initial Setup** (Backend + Frontend): 45 min
+- **Backend Development**: 2 hours
+  - Models + Services: 1 hour
+  - Controller + Routes: 30 min
+  - Testing: 30 min
+- **Frontend Development**: 2 hours
+  - Base components: 45 minutes
+  - Chart + Table: 45 minutes
+  - Styling + Polish: 30 minutes
+- **Integration & Testing**: 45 minutes
+- **Documentation + Screencast**: 30 minutes
 
-2. **Localizações Inválidas**
-   - "XYZ123" não existe
-   - Tratamento de erro apropriado
+---
 
-3. **Rate Limiting da API**
-   - Muitas requisições simultâneas
-   - Implementar retry logic
+## 5. POINTS OF ATTENTION
 
-4. **Datas Inválidas**
+### Special Cases to Test:
+1. **Polar Regions** (e.g., Tromsø, Norway in winter)
+   - Sun does not rise for several days
+   - API returns special values
+
+2. **Invalid Locations**
+   - ‘XYZ123’ does not exist
+   - Appropriate error handling
+
+3. **API Rate Limiting**
+   - Many simultaneous requests
+   - Implement retry logic
+
+4. **Invalid Dates**
    - End_date < start_date
-   - Formato incorreto
-   - Range > 365 dias
+   - Incorrect format
+   - Range > 365 days
 
 ### Performance:
-- Usar índices no banco
-- Cache de geocoding
+- Use indexes in the database
+- Geocoding cache
 - Batch API requests
 
-### Segurança:
-- Sanitizar inputs
-- Validar parâmetros
-- Rate limiting no backend (opcional)
+### Security:
+- Sanitise inputs
+- Validate parameters
+- Rate limiting in the backend (optional)

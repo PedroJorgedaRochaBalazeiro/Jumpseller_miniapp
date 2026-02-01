@@ -1,7 +1,7 @@
 // src/components/LoadingSpinner.jsx
-import './LoadingSpinner.css';
+import "./LoadingSpinner.css";
 
-const LoadingSpinner = ({ message = 'Loading data...' }) => {
+const LoadingSpinner = ({ message = "Loading data..." }) => {
   return (
     <div className="loading-container">
       <div className="loading-spinner">

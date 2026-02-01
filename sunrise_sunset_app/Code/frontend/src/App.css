@@ -41,8 +41,13 @@
 }
 
 @keyframes float {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-10px); }
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
 }
 
 .app-description {
@@ -149,8 +154,12 @@
 }
 
 @keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
 .empty-state-content {
@@ -166,8 +175,13 @@
 }
 
 @keyframes pulse {
-  0%, 100% { transform: scale(1); }
-  50% { transform: scale(1.1); }
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
 }
 
 .empty-state h3 {
@@ -258,31 +272,31 @@
   .app-title {
     font-size: 1.8rem;
   }
-  
+
   .title-icon {
     font-size: 2rem;
   }
-  
+
   .app-description {
     font-size: 1rem;
   }
-  
+
   .form-section {
     padding: 1.5rem;
   }
-  
+
   .empty-state {
     padding: 3rem 1.5rem;
   }
-  
+
   .empty-icon {
     font-size: 4rem;
   }
-  
+
   .empty-state h3 {
     font-size: 1.5rem;
   }
-  
+
   .chip {
     font-size: 0.85rem;
     padding: 0.4rem 0.8rem;
@@ -293,13 +307,13 @@
   .app-header {
     padding: 1.5rem 1rem;
   }
-  
+
   .app-title {
     font-size: 1.5rem;
     flex-direction: column;
     gap: 0.25rem;
   }
-  
+
   .app-main {
     padding: 1rem 0.5rem;
   }

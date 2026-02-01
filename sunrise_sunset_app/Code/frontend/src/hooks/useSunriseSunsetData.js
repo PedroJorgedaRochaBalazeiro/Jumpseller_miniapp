@@ -1,6 +1,6 @@
 // src/hooks/useSunriseSunsetData.js
-import { useState, useCallback } from 'react';
-import { sunriseSunsetAPI } from '../services/apiService';
+import { useState, useCallback } from "react";
+import { sunriseSunsetAPI } from "../services/apiService";
 
 /**
  * Custom hook for managing sunrise/sunset data fetching
@@ -23,19 +23,27 @@ export const useSunriseSunsetData = () => {
     setData(null);
 
     try {
-      console.log('🔍 Fetching data for:', { location, startDate, endDate });
-      const response = await sunriseSunsetAPI.fetchData(location, startDate, endDate);
-      
+      console.log("🔍 Fetching data for:", { location, startDate, endDate });
+      const response = await sunriseSunsetAPI.fetchData(
+        location,
+        startDate,
+        endDate,
+      );
+
       if (response.data && Array.isArray(response.data)) {
         setData(response.data);
-        console.log('✅ Data fetched successfully:', response.data.length, 'records');
+        console.log(
+          "✅ Data fetched successfully:",
+          response.data.length,
+          "records",
+        );
       } else {
-        throw new Error('Invalid response format from server');
+        throw new Error("Invalid response format from server");
       }
-      
+
       return response.data;
     } catch (err) {
-      console.error('❌ Error fetching data:', err);
+      console.error("❌ Error fetching data:", err);
       setError(err.message);
       throw err;
     } finally {

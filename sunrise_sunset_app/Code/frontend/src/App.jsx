@@ -1,13 +1,13 @@
 // src/App.jsx
-import { useEffect } from 'react';
-import LocationForm from './components/LocationForm';
-import DataChart from './components/DataChart';
-import DataTable from './components/DataTable';
-import LoadingSpinner from './components/LoadingSpinner';
-import ErrorMessage from './components/ErrorMessage';
-import { useSunriseSunsetData } from './hooks/useSunriseSunsetData';
-import { sunriseSunsetAPI } from './services/apiService';
-import './App.css';
+import { useEffect } from "react";
+import LocationForm from "./components/LocationForm";
+import DataChart from "./components/DataChart";
+import DataTable from "./components/DataTable";
+import LoadingSpinner from "./components/LoadingSpinner";
+import ErrorMessage from "./components/ErrorMessage";
+import { useSunriseSunsetData } from "./hooks/useSunriseSunsetData";
+import { sunriseSunsetAPI } from "./services/apiService";
+import "./App.css";
 
 function App() {
   const { data, loading, error, fetchData, reset } = useSunriseSunsetData();
@@ -17,12 +17,12 @@ function App() {
     const checkBackend = async () => {
       try {
         await sunriseSunsetAPI.healthCheck();
-        console.log('✅ Backend is healthy');
+        console.log("✅ Backend is healthy");
       } catch (err) {
-        console.warn('⚠️ Backend health check failed:', err.message);
+        console.warn("⚠️ Backend health check failed:", err.message);
       }
     };
-    
+
     checkBackend();
   }, []);
 
@@ -31,7 +31,7 @@ function App() {
       await fetchData(formData.location, formData.startDate, formData.endDate);
     } catch (err) {
       // Error is already set by the hook
-      console.error('Error in handleSubmit:', err);
+      console.error("Error in handleSubmit:", err);
     }
   };
 
@@ -44,7 +44,8 @@ function App() {
             Sunrise & Sunset Tracker
           </h1>
           <p className="app-description">
-            Get historical sunrise and sunset data for any location around the world
+            Get historical sunrise and sunset data for any location around the
+            world
           </p>
         </div>
       </header>
@@ -67,13 +68,14 @@ function App() {
             <div className="results-header">
               <h2>Results for {data[0]?.attributes?.location}</h2>
               <p className="results-count">
-                Showing {data.length} {data.length === 1 ? 'day' : 'days'} of data
+                Showing {data.length} {data.length === 1 ? "day" : "days"} of
+                data
               </p>
             </div>
-            
+
             <DataChart data={data} />
             <DataTable data={data} />
-            
+
             <div className="results-actions">
               <button onClick={reset} className="new-search-button">
                 🔍 New Search
@@ -88,11 +90,13 @@ function App() {
               <span className="empty-icon">🌍</span>
               <h3>Ready to explore sunrise and sunset times?</h3>
               <p>
-                Enter a location and date range above to get started.
-                You can search for any city in the world!
+                Enter a location and date range above to get started. You can
+                search for any city in the world!
               </p>
               <div className="example-queries">
-                <p><strong>Try these examples:</strong></p>
+                <p>
+                  <strong>Try these examples:</strong>
+                </p>
                 <div className="example-chips">
                   <span className="chip">Lisbon</span>
                   <span className="chip">Porto, Portugal</span>
@@ -109,12 +113,22 @@ function App() {
       <footer className="app-footer">
         <div className="footer-content">
           <p className="footer-credits">
-            Data provided by <a href="https://sunrisesunset.io/api/" target="_blank" rel="noopener noreferrer">
+            Data provided by{" "}
+            <a
+              href="https://sunrisesunset.io/api/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
               SunriseSunset.io API
             </a>
           </p>
           <p className="footer-info">
-            Geocoding by <a href="https://nominatim.org/" target="_blank" rel="noopener noreferrer">
+            Geocoding by{" "}
+            <a
+              href="https://nominatim.org/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
               Nominatim (OpenStreetMap)
             </a>
           </p>

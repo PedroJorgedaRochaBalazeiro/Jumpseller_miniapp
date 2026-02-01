@@ -1,27 +1,27 @@
 // src/components/LocationForm.jsx
-import { useState } from 'react';
-import DatePicker from 'react-datepicker';
-import { format, subDays, addDays } from 'date-fns';
-import { validateDateRange } from '../utils/dateHelpers';
-import 'react-datepicker/dist/react-datepicker.css';
-import './LocationForm.css';
+import { useState } from "react";
+import DatePicker from "react-datepicker";
+import { format, subDays, addDays } from "date-fns";
+import { validateDateRange } from "../utils/dateHelpers";
+import "react-datepicker/dist/react-datepicker.css";
+import "./LocationForm.css";
 
 const LocationForm = ({ onSubmit, loading }) => {
-  const [location, setLocation] = useState('');
+  const [location, setLocation] = useState("");
   const [startDate, setStartDate] = useState(subDays(new Date(), 7));
   const [endDate, setEndDate] = useState(new Date());
-  const [validationError, setValidationError] = useState('');
+  const [validationError, setValidationError] = useState("");
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    setValidationError('');
-    
+    setValidationError("");
+
     // Validate location
     if (!location.trim()) {
-      setValidationError('Please enter a location');
+      setValidationError("Please enter a location");
       return;
     }
-    
+
     // Validate date range
     const validation = validateDateRange(startDate, endDate);
     if (!validation.valid) {
@@ -32,24 +32,24 @@ const LocationForm = ({ onSubmit, loading }) => {
     // Submit the form
     onSubmit({
       location: location.trim(),
-      startDate: format(startDate, 'yyyy-MM-dd'),
-      endDate: format(endDate, 'yyyy-MM-dd'),
+      startDate: format(startDate, "yyyy-MM-dd"),
+      endDate: format(endDate, "yyyy-MM-dd"),
     });
   };
 
   const handleLocationChange = (e) => {
     setLocation(e.target.value);
-    setValidationError('');
+    setValidationError("");
   };
 
   const handleStartDateChange = (date) => {
     setStartDate(date);
-    setValidationError('');
+    setValidationError("");
   };
 
   const handleEndDateChange = (date) => {
     setEndDate(date);
-    setValidationError('');
+    setValidationError("");
   };
 
   return (
@@ -117,15 +117,13 @@ const LocationForm = ({ onSubmit, loading }) => {
       </div>
 
       {validationError && (
-        <div className="validation-error">
-          ⚠️ {validationError}
-        </div>
+        <div className="validation-error">⚠️ {validationError}</div>
       )}
 
-      <button 
-        type="submit" 
-        disabled={loading} 
-        className={`submit-button ${loading ? 'loading' : ''}`}
+      <button
+        type="submit"
+        disabled={loading}
+        className={`submit-button ${loading ? "loading" : ""}`}
       >
         {loading ? (
           <>

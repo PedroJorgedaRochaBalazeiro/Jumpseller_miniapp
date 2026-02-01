@@ -33,7 +33,9 @@
 }
 
 @keyframes bounce {
-  0%, 80%, 100% {
+  0%,
+  80%,
+  100% {
     transform: scale(0);
     opacity: 0.5;
   }
@@ -79,11 +81,11 @@
   .loading-container {
     padding: 3rem 1.5rem;
   }
-  
+
   .loading-message {
     font-size: 1.1rem;
   }
-  
+
   .loading-hint {
     font-size: 0.9rem;
   }
@@ -93,7 +95,7 @@
   .loading-container {
     padding: 2rem 1rem;
   }
-  
+
   .spinner-circle {
     width: 16px;
     height: 16px;

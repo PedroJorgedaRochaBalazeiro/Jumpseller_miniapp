@@ -6,130 +6,66 @@ Full-stack application with Ruby on Rails (backend) and React (frontend) to quer
 ## Directory Structure
 
 ```
-sunrise-sunset-app/
-├── backend/                      # Ruby on Rails API
-│   ├── app/
-│   │   ├── controllers/
-│   │   │   ├── api/
-│   │   │   │   └── v1/
-│   │   │   │       └── sunrise_sunsets_controller.rb
-│   │   │   └── application_controller.rb
-│   │   ├── models/
-│   │   │   └── sunrise_sunset_record.rb
-│   │   ├── services/
-│   │   │   ├── sunrise_sunset_api_service.rb
-│   │   │   └── geocoding_service.rb
-│   │   └── serializers/
-│   │       └── sunrise_sunset_serializer.rb
-│   ├── config/
-│   │   ├── routes.rb
-│   │   ├── database.yml
-│   │   ├── application.rb
-│   │   └── initializers/
-│   │       └── cors.rb
-│   ├── db/
-│   │   ├── migrate/
-│   │   │   └── 001_create_sunrise_sunset_records.rb
-│   │   ├── schema.rb
-│   │   └── seeds.rb
-│   ├── spec/                     # Tests RSpec
-│   │   ├── controllers/
-│   │   │   └── api/
-│   │   │       └── v1/
-│   │   │           └── sunrise_sunsets_controller_spec.rb
-│   │   ├── services/
-│   │   │   ├── sunrise_sunset_api_service_spec.rb
-│   │   │   └── geocoding_service_spec.rb
-│   │   ├── models/
-│   │   │   └── sunrise_sunset_record_spec.rb
-│   │   └── spec_helper.rb
-│   ├── Gemfile
-│   ├── Gemfile.lock
-│   ├── Rakefile
-│   └── README.md
+sunrise-sunset-app/Code/
+├── backend/                      # Ruby on Rails API (Check backend README)
 │
-├── frontend/                     # React App
-│   ├── public/
-│   │   ├── index.html
-│   │   └── favicon.ico
-│   ├── src/
-│   │   ├── components/
-│   │   │   ├── LocationForm.jsx
-│   │   │   ├── DateRangePicker.jsx
-│   │   │   ├── DataChart.jsx
-│   │   │   ├── DataTable.jsx
-│   │   │   ├── ErrorMessage.jsx
-│   │   │   └── LoadingSpinner.jsx
-│   │   ├── services/
-│   │   │   └── apiService.js
-│   │   ├── utils/
-│   │   │   ├── dateHelpers.js
-│   │   │   └── chartConfig.js
-│   │   ├── hooks/
-│   │   │   └── useSunriseSunsetData.js
-│   │   ├── App.jsx
-│   │   ├── App.css
-│   │   ├── index.js
-│   │   └── index.css
-│   ├── package.json
-│   ├── package-lock.json
-│   └── README.md
+├── frontend/                     # React App (Check frontend README)
 │
 ├── docker-compose.yml            # Optional: Docker configuration
 ├── .gitignore
 └── README.md                     # Principal project README
 ```
 
-## Tecnologias e Dependências
+## Technologies and Dependencies
 
 ### Backend (Ruby on Rails)
 
-**Gems Principais:**
-- `rails` (~> 7.1) - Framework web
-- `pg` ou `sqlite3` - Database
+**Main Gems:**
+- `rails` (~> 7.1) - Web framework
+- `pg` or `sqlite3` - Database
 - `rack-cors` - CORS handling
-- `httparty` - HTTP requests para API externa
-- `geocoder` - Conversão de nomes de cidades para coordenadas
-- `fast_jsonapi` ou `active_model_serializers` - JSON serialization
+- `httparty` - HTTP requests for external API
+- `geocoder` - Conversion of city names to coordinates
+- `fast_jsonapi` or `active_model_serializers` - JSON serialisation
 
-**Gems de Desenvolvimento/Teste:**
-- `rspec-rails` - Framework de testes
+**Development/Testing Gems:**
+- `rspec-rails` - Testing framework
 - `factory_bot_rails` - Test fixtures
-- `faker` - Dados fake para testes
+- `faker` - Fake data for testing
 - `webmock` - Mock HTTP requests
-- `shoulda-matchers` - Matchers para testes
-- `database_cleaner-active_record` - Limpeza de DB nos testes
-- `simplecov` - Cobertura de código
+- `shoulda-matchers` - Matchers for testing
+- `database_cleaner-active_record` - DB cleaning in tests
+- `simplecov` - Code coverage
 
 ### Frontend (React)
 
-**Dependências Principais:**
+**Main Dependencies:**
 - `react` (^18.x)
 - `react-dom`
 - `axios` - HTTP client
-- `recharts` ou `chart.js` com `react-chartjs-2` - Visualização de dados
-- `date-fns` ou `dayjs` - Manipulação de datas
-- `react-datepicker` - Seletor de datas
+- `recharts` or `chart.js` with `react-chartjs-2` - Data visualisation
+- `date-fns` or `dayjs` - Date manipulation
+- `react-datepicker` - Date picker
 
-**Dependências de Desenvolvimento:**
-- `@vitejs/plugin-react` ou `react-scripts` - Build tools
+**Development Dependencies:**
+- `@vitejs/plugin-react` or `react-scripts` - Build tools
 - `eslint` - Linting
 - `prettier` - Code formatting
 
-## Modelo de Dados
+## Data Model
 
-### Tabela: `sunrise_sunset_records`
+Table: `sunrise_sunset_records`
 
 ```ruby
 create_table :sunrise_sunset_records do |t|
-  t.string :location, null: false          # Nome da localização (ex: "Lisbon")
+  t.string :location, null: false          # Location name (e.g., ‘Lisbon’)
   t.decimal :latitude, precision: 10, scale: 6, null: false
   t.decimal :longitude, precision: 10, scale: 6, null: false
   t.date :date, null: false
   
-  # Dados do nascer/pôr do sol
-  t.string :sunrise                        # Ex: "6:30:00 AM"
-  t.string :sunset                         # Ex: "8:45:00 PM"
+  # Sunrise/sunset data
+  t.string :sunrise                        # E.g. ‘6:30:00 AM’
+  t.string :sunset                         # E.g. ‘8:45:00 PM’
   t.string :solar_noon
   t.string :day_length
   t.string :civil_twilight_begin
@@ -138,99 +74,99 @@ create_table :sunrise_sunset_records do |t|
   t.string :nautical_twilight_end
   t.string :astronomical_twilight_begin
   t.string :astronomical_twilight_end
-  t.string :golden_hour                    # Golden hour (manhã)
-  t.string :golden_hour_end                # Golden hour (tarde)
+  t.string :golden_hour                    # Golden hour (morning)
+  t.string :golden_hour_end                # Golden hour (afternoon)
   
-  t.string :timezone                       # Ex: "Europe/Lisbon"
+  t.string :timezone                       # Ex: ‘Europe/Lisbon’
   
   t.timestamps
 end
 
-# Índices para otimização
+# Indexes for optimisation
 add_index :sunrise_sunset_records, [:location, :date], unique: true
 add_index :sunrise_sunset_records, [:latitude, :longitude, :date]
 add_index :sunrise_sunset_records, :date
 ```
 
-## Fluxo de Dados
+## Data Flow
 
-### 1. Requisição do Frontend
+### 1. Frontend Request
 ```javascript
 POST /api/v1/sunrise_sunsets
 {
-  "location": "Lisbon",
-  "start_date": "2024-01-01",
-  "end_date": "2024-01-31"
+  ‘location’: ‘Lisbon’,
+  ‘start_date’: ‘2024-01-01’,
+  ‘end_date’: ‘2024-01-31’
 }
 ```
 
-### 2. Processamento no Backend
+### 2. Backend Processing
 
-1. **Controller** recebe a requisição
-2. **GeocodingService** converte "Lisbon" → coordenadas (lat/lng)
-3. **Controller** verifica dados existentes no DB
-4. Para datas faltantes:
-   - **SunriseSunsetApiService** faz chamada à API externa
-   - Salva novos registros no DB
-5. Retorna todos os dados (cache + novos)
+1. **Controller** receives the request
+2. **GeocodingService** converts ‘Lisbon’ → coordinates (lat/lng)
+3. **Controller** checks existing data in the DB
+4. For missing dates:
+   - **SunriseSunsetApiService** calls the external API
+   - Saves new records in the DB
+5. Returns all data (cache + new)
 
-### 3. Resposta para Frontend
+### 3. Response to Frontend
 ```javascript
 {
-  "data": [
+  ‘data’: [
     {
-      "id": "1",
-      "type": "sunrise_sunset_record",
-      "attributes": {
-        "location": "Lisbon",
-        "date": "2024-01-01",
-        "sunrise": "7:45:23 AM",
-        "sunset": "5:30:15 PM",
-        "golden_hour": "6:15:00 AM",
-        "golden_hour_end": "6:15:00 PM",
-        "day_length": "09:44:52"
+      ‘id’: ‘1’,
+      ‘type’: ‘sunrise_sunset_record’,
+      ‘attributes’: {
+        ‘location’: ‘Lisbon’,
+        ‘date’: ‘2024-01-01’,
+        ‘sunrise’: ‘7:45:23 AM’,
+        ‘sunset’: ‘5:30:15 PM’,
+        ‘golden_hour’: ‘6:15:00 AM’,
+        ‘golden_hour_end’: ‘6:15:00 PM’,
+        ‘day_length’: ‘09:44:52’
       }
     },
-    // ... mais registros
+    // ... more records
   ]
 }
 ```
 
-## Endpoints da API
+## API Endpoints
 
 ### Backend Rails API
 
 ```
-GET    /api/v1/sunrise_sunsets         # Lista registros (com filtros)
-POST   /api/v1/sunrise_sunsets         # Cria/obtém dados para range
-GET    /api/v1/sunrise_sunsets/:id     # Mostra registro específico
-DELETE /api/v1/sunrise_sunsets/:id     # Deleta registro
+GET    /api/v1/sunrise_sunsets         # List records (with filters)
+POST   /api/v1/sunrise_sunsets         # Create/get data for range
+GET    /api/v1/sunrise_sunsets/:id     # Show specific record
+DELETE /api/v1/sunrise_sunsets/:id     # Delete record
 ```
 
-**Parâmetros de Query:**
-- `location` (string) - Nome da cidade
-- `start_date` (date) - Data inicial (YYYY-MM-DD)
-- `end_date` (date) - Data final (YYYY-MM-DD)
-- `latitude` (decimal) - Opcional, se não fornecer location
-- `longitude` (decimal) - Opcional, se não fornecer location
+**Query Parameters:**
+- `location` (string) - City name
+- `start_date` (date) - Start date (YYYY-MM-DD)
+- `end_date` (date) - End date (YYYY-MM-DD)
+- `latitude` (decimal) - Optional, if location is not provided
+- `longitude` (decimal) - Optional, if location is not provided
 
-## API Externa (SunriseSunset.io)
+## External API (SunriseSunset.io)
 
 **Base URL:** `https://api.sunrisesunset.io/json`
 
-**Parâmetros:**
-- `lat` - Latitude (obrigatório)
-- `lng` - Longitude (obrigatório)
-- `date_start` - Data inicial (YYYY-MM-DD)
-- `date_end` - Data final (YYYY-MM-DD)
-- `timezone` - Timezone (opcional)
+**Parameters:**
+- `lat` - Latitude (required)
+- `lng` - Longitude (required)
+- `date_start` - Start date (YYYY-MM-DD)
+- `date_end` - End date (YYYY-MM-DD)
+- `timezone` - Timezone (optional)
 
-**Exemplo de Request:**
+**Request example:**
 ```
 GET https://api.sunrisesunset.io/json?lat=38.7223&lng=-9.1393&date_start=2024-01-01&date_end=2024-01-31
 ```
 
-**Exemplo de Response:**
+**Response example:**
 ```json
 {
   "results": [
@@ -254,33 +190,33 @@ GET https://api.sunrisesunset.io/json?lat=38.7223&lng=-9.1393&date_start=2024-01
 }
 ```
 
-## Tratamento de Erros
+## Error Handling
 
-### Erros a Serem Tratados:
+### Errors to be Handled:
 
-1. **Localização Inválida**
-   - Location não encontrada pelo geocoder
-   - Coordenadas fora dos limites (-90 a 90 lat, -180 a 180 lng)
+1. **Invalid Location**
+   - Location not found by geocoder
+   - Coordinates outside limits (-90 to 90 lat, -180 to 180 lng)
 
-2. **Parâmetros Faltantes**
-   - Location ou coordenadas não fornecidas
-   - Datas inválidas ou faltantes
+2. **Missing Parameters**
+   - Location or coordinates not provided
+   - Invalid or missing dates
 
-3. **Casos Especiais Ártico/Antártico**
-   - API retorna status especial quando sol não nasce/põe
-   - Armazenar com valores especiais (ex: "N/A" ou "POLAR_NIGHT"/"MIDNIGHT_SUN")
+3. **Arctic/Antarctic Special Cases**
+   - API returns special status when sun does not rise/set
+   - Store with special values (e.g., ‘N/A’ or “POLAR_NIGHT”/‘MIDNIGHT_SUN’)
 
-4. **Falhas na API Externa**
+4. **External API Failures**
    - Timeout
    - Rate limiting
-   - Serviço indisponível
-   - Response inválido
+   - Service unavailable
+   - Invalid response
 
-5. **Erros de Database**
+5. **Database Errors**
    - Constraint violations
    - Connection errors
 
-### Estrutura de Erro do Backend:
+### Backend Error Structure:
 
 ```json
 {
@@ -292,22 +228,22 @@ GET https://api.sunrisesunset.io/json?lat=38.7223&lng=-9.1393&date_start=2024-01
 }
 ```
 
-## Otimizações Implementadas
+## Implemented Optimisations
 
-1. **Caching em Database**
-   - Evita chamadas desnecessárias à API externa
-   - Índices para busca rápida
+1. **Database Caching**
+   - Prevents unnecessary calls to the external API
+   - Indexes for fast searching
 
 2. **Batch Requests**
-   - API externa suporta date_start e date_end
-   - Uma única chamada para múltiplas datas
+   - External API supports date_start and date_end
+   - A single call for multiple dates
 
 3. **Geocoding Cache**
-   - Armazena lat/lng das localizações consultadas
-   - Evita geocoding repetido
+   - Stores lat/lng of queried locations
+   - Prevents repeated geocoding
 
-4. **Frontend Optimizations**
-   - Debounce em inputs
+4. **Frontend Optimisations**
+   - Debounce on inputs
    - Loading states
    - Error boundaries
 
@@ -316,35 +252,35 @@ GET https://api.sunrisesunset.io/json?lat=38.7223&lng=-9.1393&date_start=2024-01
 ### Backend (RSpec)
 
 **Controller Tests:**
-- Request specs para todos os endpoints
-- Validação de parâmetros
-- Tratamento de erros
+- Request specs for all endpoints
+- Parameter validation
+- Error handling
 
 **Service Tests:**
-- SunriseSunsetApiService com WebMock
+- SunriseSunsetApiService with WebMock
 - GeocodingService
 - Edge cases (polar regions, invalid data)
 
 **Model Tests:**
-- Validações
+- Validations
 - Associations
 - Scopes
 
 ### Frontend (Jest/React Testing Library)
 
-- Componentes isolados
-- Integração com API
+- Isolated components
+- API integration
 - User interactions
 - Error states
 
-## Variáveis de Ambiente
+## Environment Variables
 
 ### Backend (.env)
 
 ```
 DATABASE_URL=postgresql://user:password@localhost/sunrise_db
 RAILS_ENV=development
-GEOCODER_API_KEY=your_api_key_here  # Se usar geocoder pago
+GEOCODER_API_KEY=your_api_key_here  # If using paid geocoder
 ```
 
 ### Frontend (.env)
@@ -353,7 +289,13 @@ GEOCODER_API_KEY=your_api_key_here  # Se usar geocoder pago
 REACT_APP_API_URL=http://localhost:3000/api/v1
 ```
 
-## Comandos de Setup
+### Frontend (.env)
+
+```
+REACT_APP_API_URL=http://localhost:3000/api/v1
+```
+
+## Setup Commands
 
 ### Backend
 
@@ -361,7 +303,7 @@ REACT_APP_API_URL=http://localhost:3000/api/v1
 cd backend
 bundle install
 rails db:create db:migrate
-rails db:seed  # Opcional: dados de exemplo
+rails db:seed  # Optional: sample data
 rails server -p 3000
 ```
 
@@ -370,10 +312,10 @@ rails server -p 3000
 ```bash
 cd frontend
 npm install
-npm start  # Roda na porta 3001 ou similar
+npm start  # Runs on port 3001 or similar
 ```
 
-### Testes
+### Tests
 
 ```bash
 # Backend
@@ -385,23 +327,23 @@ cd frontend
 npm test
 ```
 
-## Próximos Passos para Implementação
+## Next Steps for Implementation
 
-1. **Setup Inicial**
-   - Criar projeto Rails (API only)
-   - Criar projeto React (Vite ou CRA)
-   - Configurar CORS
+1. **Initial Setup**
+   - Create Rails project (API only)
+   - Create React project (Vite or CRA)
+   - Configure CORS
 
 2. **Backend Development**
-   - Migration e Model
+   - Migration and Model
    - Services (API + Geocoding)
-   - Controller e Routes
-   - Testes
+   - Controller and Routes
+   - Testing
 
 3. **Frontend Development**
-   - Componentes base
+   - Base components
    - API integration
-   - Charts e Tables
+   - Charts and Tables
    - Styling
 
 4. **Integration & Testing**
@@ -410,23 +352,23 @@ npm test
    - Edge cases
 
 5. **Documentation**
-   - README completo
+   - Complete README
    - API documentation
    - Screencast
 
-## Bibliotecas de Charts Recomendadas
+## Recommended Chart Libraries
 
-### Option 1: Recharts (Recomendado)
-- Mais React-friendly
-- Boa documentação
-- Sintaxe declarativa
+### Option 1: Recharts (Recommended)
+- More React-friendly
+- Good documentation
+- Declarative syntax
 
-### Option 2: Chart.js com react-chartjs-2
-- Mais features
-- Melhor performance com grandes datasets
-- Mais customizável
+### Option 2: Chart.js with react-chartjs-2
+- More features
+- Better performance with large datasets
+- More customisable
 
-### Tipos de Charts Úteis:
-- **Line Chart** - Evolução de sunrise/sunset ao longo do tempo
-- **Bar Chart** - Comparação de day_length
+### Useful Chart Types:
+- **Line Chart** - Sunrise/sunset evolution over time
+- **Bar Chart** - Day_length comparison
 - **Area Chart** - Golden hour periods
